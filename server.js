@@ -13,8 +13,8 @@ const app = express()
 
 
 // default page
-app.get('/', (request, response)=> {
-    response.send('<h1>Hello World</h1>')
+app.get('/boop', (req, res)=> {
+    res.send('<h1>Hello World</h1>')
 })
 
 // greeting page
@@ -23,11 +23,38 @@ app.get('/greeting/:name', (req, res)=> {
 })
 
 // dice page
-app.get('/roll/:num', (req, res)=> {
-    const randomNum = Math.floor(Math.random() * req.params.num)
-    res.send(`<h1>You rolled a ${randomNum}</h1>`)
+app.get('/rolls/:num', (req, res)=> {
+    
+
+    const reqNum = parseInt(req.params.num)
+   
+    // console.log(reqNum)
+    // console.log(typeof reqNum)
+    
+    if (!reqNum) {
+    res.send('<h1>That is not a number</h1>')
+   }
+
+    else if (typeof reqNum == 'number') {
+    const result = Math.floor(Math.random() * reqNum)
+    res.send(`<h1>you rolled a ${result}</h1>`)
+   }
     
 })
+
+
+// COLLECTIBLES PAGE
+//   const collectibles = [
+//     { name: 'shiny ball', price: 5.95 },
+//     { name: 'autographed picture of a dog', price: 10 },
+//     { name: 'vintage 1970s yogurt SOLD AS-IS', price: 0.99 }
+//   ];
+
+
+  app.get('/collectibles/:itemNum', (req, res)=> {
+    res.send(`<h1>this is ${req.params.itemNum}</h1>`)
+})
+
 
 
 
